@@ -1,0 +1,28 @@
+bundle:
+  name: product_pipeline
+
+workspace:
+  host: https://dbc-90165a02-8ee3.cloud.databricks.com
+
+resources:
+  jobs:
+    product_ecommerce_pipeline:
+      name: product_ecommerce_pipeline
+      tasks:
+        - task_key: bronze
+          notebook_task:
+            notebook_path: /Users/rohitachary98@gmail.com/bronze_notebook
+        - task_key: silver
+          notebook_task:
+            notebook_path: /Users/rohitachary98@gmail.com/silver_notebook
+          depends_on:
+            - task_key: bronze
+        - task_key: gold
+          notebook_task:
+            notebook_path: /Users/rohitachary98@gmail.com/gold_notebook
+          depends_on:
+            - task_key: silver
+
+targets:
+  dev:
+    mode: development
