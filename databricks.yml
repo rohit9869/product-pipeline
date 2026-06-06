@@ -4,8 +4,6 @@ bundle:
 
 workspace:
   host: https://dbc-90165a02-8ee3.cloud.databricks.com
-  profile: DEFAULT
-
 resources:
   jobs:
     product_ecommerce_pipeline:
