@@ -1,10 +1,10 @@
+# Product Ecommerce Pipeline - Databricks Asset Bundle
 bundle:
   name: product_pipeline
 
 workspace:
   host: https://dbc-90165a02-8ee3.cloud.databricks.com
   profile: DEFAULT
-
 
 resources:
   jobs:
