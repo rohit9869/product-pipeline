@@ -3,6 +3,8 @@ bundle:
 
 workspace:
   host: https://dbc-90165a02-8ee3.cloud.databricks.com
+  profile: DEFAULT
+
 
 resources:
   jobs:
@@ -11,15 +13,15 @@ resources:
       tasks:
         - task_key: bronze
           notebook_task:
-            notebook_path: /Users/rohitachary98@gmail.com/bronze_notebook
+            notebook_path: ./src/product_pipeline/bronze_notebook.ipynb
         - task_key: silver
           notebook_task:
-            notebook_path: /Users/rohitachary98@gmail.com/silver_notebook
+            notebook_path: ./src/product_pipeline/silver_notebook.ipynb
           depends_on:
             - task_key: bronze
         - task_key: gold
           notebook_task:
-            notebook_path: /Users/rohitachary98@gmail.com/gold_notebook
+            notebook_path: ./src/product_pipeline/gold_notebook.ipynb
           depends_on:
             - task_key: silver
 
