@@ -1,33 +1,34 @@
-# Name of your automation
 name: Databricks Bundle Deploy
 
-# WHEN to run automatically
 on:
   push:
     branches:
-      - main          # Run when code pushed to main
+      - main
   pull_request:
     branches:
-      - main          # Run when PR created to main
+      - main
 
-# WHAT to do automatically
 jobs:
   deploy:
-    runs-on: ubuntu-latest    # Use Linux computer
-
+    runs-on: ubuntu-latest
     steps:
-      # Step 1: Get your code from GitHub
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # Step 2: Install Databricks CLI
       - name: Install Databricks CLI
-        run: curl -fsSL https://...
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
 
-      # Step 3: Validate your bundle
       - name: Validate Bundle
-        run: databricks bundle validate
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          databricks bundle validate
 
-      # Step 4: Deploy to Databricks automatically!
       - name: Deploy Bundle
-        run: databricks bundle deploy --target dev
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: |
+          databricks bundle deploy --target dev
